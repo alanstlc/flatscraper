@@ -1,0 +1,28 @@
+services:
+  storage:
+    volumes:
+      - ./table.sql:/docker-entrypoint-initdb.d/init.sql
+    environment:
+      - POSTGRES_PASSWORD=1234
+      - POSTGRES_DB=sreality
+    image: "postgres:16-bookworm"
+    restart: always
+    ports:
+      - "5432:5432"
+  downloader:
+    image: "python:3.8-slim-bullseye"
+    volumes:
+      - ./downloader:/home/
+    entrypoint: ["bash", "-c", "/home/init.sh"]
+    depends_on:
+      - storage
+  server:
+    image: "python:3.8-slim-bullseye"
+    volumes:
+      - ./server:/home/
+    ports:
+      - "8080:8000"
+    entrypoint: ["bash", "-c", "/home/init.sh"]
+    depends_on:
+      - storage
+      - downloader

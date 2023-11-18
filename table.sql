@@ -1,0 +1,5 @@
+CREATE TABLE IF NOT EXISTS sreality (
+   id INT PRIMARY KEY,
+   title VARCHAR(128) NOT NULL,
+   image_url VARCHAR(128) UNIQUE NOT NULL
+);

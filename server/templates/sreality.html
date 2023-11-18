@@ -1,0 +1,46 @@
+<html>
+<body>
+<h1 style="text-align:center">Sreality.cz (almost alike)</h1>
+<h3 style="text-align:center">Scraped {{ flats_count }} flats so far</h3>
+{% if flats %}
+<div style="text-align:center">
+    {% for i in range(1, flats_count // 20 + 2) %}
+    {% if i == page_num %}
+    <strong style="text-decoration:none;color:black" href="/{{ i }}">{{ i }}</strong>
+    {% else %}
+    <a style="text-decoration:none;color:black" href="/{{ i }}">{{ i }}</a>
+    {% endif%}
+    {% endfor %}
+    <br>
+    <a style="text-decoration:none;color:black" href="/{{ [page_num - 1, 1]|max }}"><<</a>
+    <a style="text-decoration:none;color:black" href="/{{ [page_num + 1, flats_count // 20 + 1]|min }}">>></a>
+</div>
+<table style="margin-left: auto;margin-right: auto;">
+    <tr>
+        <th>ID</th>
+        <th>Title</th>
+        <th>Pict</th>
+    </tr>
+    {% for flat in flats %}
+    <tr>
+        <td>{{ flat[0] }}</td>
+        <td>{{ flat[1] }}</td>
+        <td><img src={{ flat[2] }}></td>
+    </tr>
+    {% endfor %}
+</table>
+<div style="text-align:center">
+    <a style="text-decoration:none;color:black" href="/{{ [page_num - 1, 1]|max }}"><<</a>
+    <a style="text-decoration:none;color:black" href="/{{ [page_num + 1, flats_count // 20 + 1]|min }}">>></a>
+    <br>
+    {% for i in range(1, flats_count // 20 + 2) %}
+    {% if i == page_num %}
+    <strong style="text-decoration:none;color:black" href="/{{ i }}">{{ i }}</strong>
+    {% else %}
+    <a style="text-decoration:none;color:black" href="/{{ i }}">{{ i }}</a>
+    {% endif%}
+    {% endfor %}
+</div>
+{% endif %}
+</body>
+</html>
